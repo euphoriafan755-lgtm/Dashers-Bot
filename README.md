@@ -6,7 +6,7 @@ Bot de Discord para **Dashers Community ES**. Configuración elegida: 53 canales
 
 Este repositorio tiene preparado un flujo para **extraer automáticamente** el ZIP del proyecto y dejar cada archivo individual en GitHub. Para completarlo una sola vez:
 
-1. Descargá el paquete original [DashersBot-v0.2-Waifly-LISTO.zip](https://chatgpt.com/) desde la conversación donde fue generado. **No lo descomprimas para este método.**
+1. Descargá el paquete original `DashersBot-v0.2-Waifly-LISTO.zip` desde la conversación donde fue generado. **No lo descomprimas para este método.**
 2. En GitHub: **Add file → Upload files**, arrastrá el ZIP y confirmá el commit directamente en `main`. El nombre debe ser exactamente `DashersBot-v0.2-Waifly-LISTO.zip`.
 3. Entrá en **Actions → Importar Dashers Bot desde ZIP**. Cuando el proceso termine en verde, el repositorio contendrá los archivos originales en su sitio (`package.json`, `src/`, `test/`, etc.). El ZIP se elimina del repositorio automáticamente una vez importado.
 4. Si el proceso falla, **no hagas el despliegue aún**. Consultá los errores del flujo. El ZIP se comprueba mediante SHA-256 y se ejecutan las 10 pruebas locales antes de publicar el código.
