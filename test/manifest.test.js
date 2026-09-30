@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';import test from 'node:test';
+import {ROLES,CATEGORIES,TOTAL_CHANNELS,FORUM_TAGS} from '../src/manifest.js';
+import {parseLevel,formatTimely} from '../src/feeds.js';
+const keys=CATEGORIES.flatMap(c=>c.channels.map(x=>x[2]));
+test('8 categorías y 53 canales exactos',()=>{assert.equal(CATEGORIES.length,8);assert.equal(TOTAL_CHANNELS,53);});
+test('23 roles, 8 visibles y 15 sin sección lateral',()=>{assert.equal(ROLES.length,23);assert.equal(ROLES.filter(r=>r.hoist).length,8);assert.equal(ROLES.filter(r=>!r.hoist).length,15);});
+test('IDs estables y canales únicos',()=>{assert.equal(new Set(keys).size,keys.length);assert.equal(new Set(ROLES.map(r=>r.key)).size,23);});
+test('canales rechazados no figuran',()=>{const all=CATEGORIES.flatMap(c=>c.channels.map(x=>x[0])).join('\n');for(const name of ['📩・postulaciones','📊・estado-del-bot','📊・encuestas','🏅・logros-comunidad','🆔・niveles-para-jugar','📹・completions-destacadas','📊・ranking-del-grupo','🎂・cumpleaños','🗳️・decisiones-del-grupo','⏳ Sala de espera','🔍・revision-de-requisitos','🔊 Reunión Staff'])assert.ok(!all.includes(name),name);});
+test('foros incluyen etiquetas',()=>{const forums=CATEGORIES.flatMap(c=>c.channels.filter(x=>x[1]==='forum'));for(const [,kind,key] of forums){assert.equal(kind,'forum');assert.ok(FORUM_TAGS[key]?.length,key);}});
+test('nivel GD: parser conserva ID y título sin inventarlos',()=>{const parsed=parseLevel('1:123456:2:Mi Nivel:6:789:#hash');assert.equal(parsed.id,'123456');assert.equal(parsed.name,'Mi Nivel');assert.match(formatTimely({...parsed,kind:'daily',index:'3001'}),/123456/);assert.throws(()=>parseLevel('-1'));});
