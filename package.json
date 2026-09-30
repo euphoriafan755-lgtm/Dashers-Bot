@@ -1,21 +1,15 @@
 {
   "name": "dashers-bot",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "private": true,
-  "description": "Dashers Bot: Discord 53 channels + 23 roles + safe resource care for free Node hosts",
+  "description": "Bot oficial de Dashers Community ES",
   "type": "module",
-  "engines": {
-    "node": ">=22.12.0"
-  },
+  "engines": {"node": ">=22.12.0"},
   "scripts": {
-    "start": "node src/index.js",
-    "register": "node src/register.js",
-    "test": "node --test test/*.test.js test/*.test.cjs",
-    "check": "node --check src/index.js && node --check src/setup.js && node --check src/features.js && node --check src/commands.js && node --check src/feeds.js && node --check src/resourceCare.cjs && node --check src/runtime.js",
-    "preflight": "node tools/preflight.cjs"
+    "start": "node src/main.js",
+    "check": "node tools/check.mjs",
+    "test": "node --test",
+    "verify": "npm run check && npm test"
   },
-  "dependencies": {
-    "discord.js": "^14.27.0",
-    "dotenv": "^17.2.0"
-  }
+  "dependencies": {"discord.js": "14.27.0"}
 }

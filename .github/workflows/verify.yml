@@ -1,0 +1,23 @@
+name: Pruebas Dashers
+on:
+  push:
+    branches: [main, rewrite/v1]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar dependencias
+        run: npm install --no-audit --ignore-scripts
+      - name: Sintaxis, integridad y pruebas
+        run: npm run verify
+      - name: Cargar módulos de Discord y validar comandos
+        run: |
+          node --input-type=module -e "const m=await import('./src/bot/commands.js'); const x=m.commandDefinitions.map(c=>c.toJSON()); if(x.length!==14)throw new Error('No se registraron los comandos previstos'); console.log('COMANDOS OK:',x.length)"
