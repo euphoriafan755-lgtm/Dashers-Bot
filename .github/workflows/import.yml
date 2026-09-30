@@ -1,0 +1,8 @@
+name: Source import staging
+on:
+  workflow_dispatch:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Source transfer not yet ready
